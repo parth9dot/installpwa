@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { demoData } from './App';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
 import InstallPWAButton from './InstallPwa';
 
 const AviatorGame = () => {
