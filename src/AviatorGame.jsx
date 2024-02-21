@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { demoData } from './App';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
+import InstallPWAButton from './InstallPwa';
 
 const AviatorGame = () => {
+    const [show, setShow] = useState(true);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     // const [altitude, setAltitude] = useState(1);
     // const [crashed, setCrashed] = useState(false);
     // const [bettingAmount, setBettingAmount] = useState(demoData)
@@ -61,22 +69,22 @@ const AviatorGame = () => {
 
     useEffect(() => {
         const handler = e => {
-          e.preventDefault();
-          console.log("we are being triggered :D");
-          setSupportsPWA(true);
-          setPromptInstall(e);
+            e.preventDefault();
+            console.log("we are being triggered :D");
+            setSupportsPWA(true);
+            setPromptInstall(e);
         };
         window.addEventListener("beforeinstallprompt", handler);
-    
+
         return () => window.removeEventListener("transitionend", handler);
-      }, []);
+    }, []);
     const onClick = evt => {
         evt.preventDefault();
         if (!promptInstall) {
-          return;
+            return;
         }
         promptInstall.prompt();
-      };
+    };
     //   if (!supportsPWA) {
     //     return null;
     //   }
@@ -135,9 +143,24 @@ const AviatorGame = () => {
                     </div>
                 </div> */}
                 <button className='p-3 bg-green-300' onClick={onClick}>Install App</button>
+                <InstallPWAButton></InstallPWAButton>
             </div>
             <div className="grid grid-cols-1 my-3">
             </div>
+            <Modal show={true} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
         // <div>
         //   <h1>Aviator Game</h1>
